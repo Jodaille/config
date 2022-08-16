@@ -554,21 +554,21 @@ function jobs ()
 				#
 				check_advanced_modes
 				#
-				if [[ -n "$hostapd_error" ]]; then
-					dialog --colors --backtitle "$BACKTITLE" --title "Please wait" --infobox \
-					"\nWireless adapter: \Z1${WIRELESS_ADAPTER}\Z0\n\nProbing Realtek hostapd driver compatibility." 7 50
-					debconf-apt-progress -- apt-get --reinstall -o Dpkg::Options::="--force-confnew" -y -qq --no-install-recommends install hostapd-realtek
-					# change to selected interface
-					sed -i "s/^interface=.*/interface=$WIRELESS_ADAPTER/" /etc/hostapd.conf
-					# add allow cli access if not exists. temporally
-					if ! grep -q "ctrl_interface" /etc/hostapd.conf; then
-						echo "ctrl_interface=/var/run/hostapd" >> /etc/hostapd.conf
-						echo "ctrl_interface_group=0" >> /etc/hostapd.conf
-					fi
-					#
-					check_advanced_modes
-					#
-				fi
+				# if [[ -n "$hostapd_error" ]]; then
+				# 	dialog --colors --backtitle "$BACKTITLE" --title "Please wait" --infobox \
+				# 	"\nWireless adapter: \Z1${WIRELESS_ADAPTER}\Z0\n\nProbing Realtek hostapd driver compatibility." 7 50
+				# 	debconf-apt-progress -- apt-get --reinstall -o Dpkg::Options::="--force-confnew" -y -qq --no-install-recommends install hostapd-realtek
+				# 	# change to selected interface
+				# 	sed -i "s/^interface=.*/interface=$WIRELESS_ADAPTER/" /etc/hostapd.conf
+				# 	# add allow cli access if not exists. temporally
+				# 	if ! grep -q "ctrl_interface" /etc/hostapd.conf; then
+				# 		echo "ctrl_interface=/var/run/hostapd" >> /etc/hostapd.conf
+				# 		echo "ctrl_interface_group=0" >> /etc/hostapd.conf
+				# 	fi
+				# 	#
+				# 	check_advanced_modes
+				# 	#
+				# fi
 
 				if [[ -n "$hostapd_error" ]]; then
 					dialog --backtitle "$BACKTITLE" --title "Warning" \
@@ -1568,7 +1568,7 @@ function jobs ()
 			fi
 		done
 		## End search for current dtb in use
-		
+
 		dtbfile="${used_dtb}"
 		tmpdir="$(mktemp -d || exit 1)"
 		chmod 700 "${tmpdir}"
@@ -1603,7 +1603,7 @@ function jobs ()
 								* ) break;;
 							esac
 							;;
-						* ) 
+						* )
 							echo "Modifications cancelled!"
 							;;
 					esac
